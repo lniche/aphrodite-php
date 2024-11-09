@@ -1,32 +1,37 @@
 # Aphrodite Laravel API Scaffold
 
-Aphrodite 是一个基于 [Laravel API Scaffold](https://github.com/redot-src/laravel-api-scaffold) 开发的模板项目，旨在帮助开发者快速上手，深入理解框架的使用流程。该项目提供了全面的示例代码和配置，涵盖了常见的开发场景，以便于学习和实践。此外，Aphrodite 还包含容器部署模板，使得项目在现代云环境中能够轻松部署与管理，助力开发者高效构建和发布应用。
+Aphrodite is a template project based on [Laravel API Scaffold](https://github.com/redot-src/laravel-api-scaffold), designed to help developers get started quickly and deeply understand the use process of the framework. The project provides comprehensive sample code and configuration, covering common development scenarios, to facilitate learning and practice. In addition, Aphrodite also includes container deployment templates, making the project easy to deploy and manage in modern cloud environments, helping developers to efficiently build and release applications.
 
-## 技术栈
+## Tech Stack
 
-| 技术                                                      | 说明                                           |
-| --------------------------------------------------------- | ---------------------------------------------- |
-| [tokio](https://github.com/tokio-rs/tokio)                | 异步运行时，支持多种异步功能和全特性           |
-| [clap](https://github.com/clap-rs/clap)                   | 命令行参数解析库，支持衍生宏                   |
-| [thiserror](https://github.com/dtolnay/thiserror)         | 错误处理库，提供简洁的错误定义                 |
-| [anyhow](https://github.com/dtolnay/anyhow)               | 灵活的错误处理库，适用于简化错误传播           |
-| [base64](https://crates.io/crates/base64)                 | Base64 编码和解码库                            |
-| [time](https://crates.io/crates/time)                     | 时间处理库，支持宏、本地时区、格式化和解析功能 |
-| [serde](https://serde.rs/)                                | 数据序列化和反序列化库，支持衍生宏             |
-| [serde_json](https://crates.io/crates/serde_json)         | JSON 数据序列化和反序列化库                    |
-| [tracing](https://github.com/tokio-rs/tracing)            | 异步应用日志框架                               |
-| [tracing-subscriber](https://github.com/tokio-rs/tracing) | 日志订阅者，支持 JSON 格式                     |
+| Technology                                                | Description                                                                                    |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| [tokio](https://github.com/tokio-rs/tokio)                | Asynchronous runtime, supporting multiple asynchronous functions and full features             |
+| [clap](https://github.com/clap-rs/clap)                   | Command line argument parsing library, supporting derivative macros                            |
+| [thiserror](https://github.com/dtolnay/thiserror)         | Error handling library, providing concise error definitions                                    |
+| [anyhow](https://github.com/dtolnay/anyhow)               | Flexible error handling library, suitable for simplifying error propagation                    |
+| [base64](https://crates.io/crates/base64)                 | Base64 encoding and decoding library                                                           |
+| [time](https://crates.io/crates/time)                     | Time processing library, supporting macros, local time zones, formatting and parsing functions |
+| [serde](https://serde.rs/)                                | Data serialization and deserialization library, supporting derivative macros                   |
+| [serde_json](https://crates.io/crates/serde_json)         | JSON data serialization and deserialization library                                            |
+| [tracing](https://github.com/tokio-rs/tracing)            | Asynchronous application logging framework                                                     |
+| [tracing-subscriber](https://github.com/tokio-rs/tracing) | Log subscriber, supporting JSON format                                                         |
 
-## 特性
+## Features
 
-- **用户认证与授权**：提供基础的用户登录和权限授权功能。
-- **分布式锁**：基于 Redis 实现的分布式锁，保证分布式环境下的资源安全。
-- **中间件支持**：内置常用的中间件，包括认证、请求日志、跨域处理等。
-- **统一输出格式**：提供简单易用的 API Result 统一输出方式，标准化 API 响应格式，提升接口一致性。
-- **API 模块化设计**：支持模块化的 API 设计，易于扩展和维护。
-- **Swagger 文档集成**：自动生成 API 文档，便于前端开发和测试。
+- **User authentication and authorization**: Provides basic user login and permission authorization functions.
 
-## 模块说明
+- **Distributed lock**: Distributed lock based on Redis to ensure resource security in a distributed environment.
+
+- **Middleware support**: Built-in commonly used middleware, including authentication, request logs, cross-domain processing, etc.
+
+- **Unified output format**: Provides a simple and easy-to-use API Result unified output method, standardizes the API response format, and improves interface consistency.
+
+- **API modular design**: Supports modular API design, easy to expand and maintain.
+
+- **Swagger document integration**: Automatically generates API documents for front-end development and testing.
+
+## Structure
 
 ```
 .
@@ -42,46 +47,46 @@ Aphrodite 是一个基于 [Laravel API Scaffold](https://github.com/redot-src/la
 └── README.md # Project's self-documentation file
 ```
 
-## 本地运行
+## Run Local
 
 ```bash
-# 1. 克隆项目代码库
+# 1. Clone the project code base
 git clone https://github.com/lniche/aphrodite-php.git
 cd aphrodite-php
 
-# 2. 配置文件
+# 2. Configuration file
 cd config
-mv .env.example .env
+mv config.toml.example config.toml
 
-# 3. 处理依赖
-# 确保你已经安装了 PHP 和 Laravel 环境, 推荐使用Herd
+# 3. Handle dependencies
+# Make sure you have installed PHP and Laravel environment, Herd is recommended
 composer install
 
-# 4. 初始化数据库
-db/init.sql
+# 4. Initialize the database
+database/init.sql
 
-# 5. 启动服务
+# 5. Start the service
 php artisan serve
 ```
 
 ## Repo Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/92f87152abeaf234940e0a4979ac2644ab05a54f.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/f148a33b1670c233b9fa96497ccdb22bd5b1077e.svg "Repobeats analytics image")
 
-## 贡献
+## Contribution
 
-如果你有任何建议或想法，欢迎创建 Issue 或直接提交 Pull Request。
+If you have any suggestions or ideas, please create an issue or submit a Pull Request directly.
 
-1. Fork 这个仓库。
-2. 创建一个新的分支：git checkout -b feature/your-feature
-3. 提交你的更改：git commit -m 'Add new feature'
-4. 推送到你的分支：git push origin feature/your-feature
-5. 提交 Pull Request。
+1. Fork this repository.
+2. Create a new branch: git checkout -b feature/your-feature
+3. Commit your changes: git commit -m 'Add new feature'
+4. Push to your branch: git push origin feature/your-feature
+5. Submit a Pull Request.
 
-## 许可证
+## License
 
-该项目遵循 MIT 许可证。
+This project is licensed under the MIT License.
 
-## 鸣谢
+## Acknowledgements
 
-特别感谢所有贡献者和支持者，您的帮助对我们至关重要！
+Special thanks to all contributors and supporters, your help is essential to us!
