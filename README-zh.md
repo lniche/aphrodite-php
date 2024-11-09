@@ -50,7 +50,6 @@ git clone https://github.com/lniche/aphrodite-php.git
 cd aphrodite-php
 
 # 2. 配置文件
-cd config
 mv .env.example .env
 
 # 3. 处理依赖

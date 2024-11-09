@@ -55,8 +55,7 @@ git clone https://github.com/lniche/aphrodite-php.git
 cd aphrodite-php
 
 # 2. Configuration file
-cd config
-mv config.toml.example config.toml
+mv .env.example .env
 
 # 3. Handle dependencies
 # Make sure you have installed PHP and Laravel environment, Herd is recommended
