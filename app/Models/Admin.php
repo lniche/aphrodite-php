@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,10 +52,5 @@ class Admin extends Authenticatable
     /**
      * The "booted" method of the model.
      */
-    protected static function booted(): void
-    {
-        ResetPassword::createUrlUsing(function (Admin $notifiable, string $token) {
-            return config('app.frontend_url') . "dashboard/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
-        });
-    }
+    protected static function booted(): void {}
 }

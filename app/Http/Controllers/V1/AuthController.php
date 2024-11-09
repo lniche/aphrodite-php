@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Auth;
+namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Auth\LoginRequest;
+use App\Http\Requests\V1\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuthenticatedSessionController extends Controller
+class AuthController extends Controller
 {
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): JsonResponse
     {
-        $admin = $request->authenticate();
+        $user = $request->authenticate();
 
-        $token = $admin->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return $this->respond([
             'token' => $token,
@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Display the current admin.
+     * Display the current user.
      */
     public function show(Request $request): JsonResponse
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Auth;
+namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Notifications\NewAdminNotification;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
@@ -20,18 +20,23 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Admin::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $admin = Admin::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        $admin->notify(new NewAdminNotification($request->password));
+        event(new Registered($user));
 
-        return $this->respond(message: 'Admin created successfully');
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return $this->respond([
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ]);
     }
 }

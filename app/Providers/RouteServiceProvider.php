@@ -29,8 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::middleware('api')->name('website.')->group(base_path('routes/website.php'));
-            Route::middleware('api')->prefix('dashboard')->name('dashboard.')->group(base_path('routes/dashboard.php'));
+            Route::middleware('api')->name('v1.')->group(base_path('routes/v1.php'));
         });
     }
 }

@@ -47,13 +47,12 @@ class Handler extends ExceptionHandler
 
         $code = $this->parseExceptionCode($e);
         $message = $this->parseExceptionMessage($e, $code);
-        $payload = $this->parseExceptionPayload($e);
+        $data = $this->parseExceptionPayload($e);
 
         return response()->json([
             'code' => $code,
-            'success' => false,
             'message' => $message,
-            'payload' => $payload,
+            'data' => $data,
         ], $code);
     }
 

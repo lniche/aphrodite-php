@@ -15,16 +15,15 @@ class Controller extends BaseController
     /**
      * Send a Success JSON Response.
      */
-    public function respond(mixed $payload = [], string $message = 'OK', int $code = 200): JsonResponse
+    public function respond(mixed $data = [], string $message = 'ok', int $code = 0): JsonResponse
     {
         $parameters = [
             'code' => $code,
-            'success' => true,
             'message' => $message,
         ];
 
-        if ($payload !== null) {
-            $parameters['payload'] = $payload;
+        if ($data !== null) {
+            $parameters['data'] = $data;
         }
 
         return response()->json($parameters, $code);
@@ -33,16 +32,15 @@ class Controller extends BaseController
     /**
      * Send a Failure JSON Response.
      */
-    public function fail(string $message = 'Bad Request', int $code = 400, mixed $payload = []): JsonResponse
+    public function fail(string $message = 'err', int $code = -1, mixed $data = []): JsonResponse
     {
         $parameters = [
             'code' => $code,
-            'success' => false,
             'message' => $message,
         ];
 
-        if ($payload !== null) {
-            $parameters['payload'] = $payload;
+        if ($data !== null) {
+            $parameters['data'] = $data;
         }
 
         throw new HttpResponseException(response()->json($parameters, $code));
