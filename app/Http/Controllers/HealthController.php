@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-class HomeController extends Controller
+class HealthController extends Controller
 {
-    /**
-     * Display the dashboard home page.
-     */
-    public function index()
+
+    public function root()
     {
-        return $this->respond([
-            //
-        ]);
+        return 'Thank you for using Aphrodite!';
+    }
+
+    public function ping()
+    {
+        return $this->respond(message: 'pong');
     }
 }
