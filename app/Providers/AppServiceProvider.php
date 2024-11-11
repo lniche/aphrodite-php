@@ -22,7 +22,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $host = Config::get('app.url');
-        Log::info('server start', ['host' => sprintf($host)]);
-        Log::info('docs addr', ['addr' => sprintf('%s/swagger-ui/index.html', $host)]);
+        Log::info('===============================');
+        Log::info('Listening on', ['host' => sprintf($host)]);
+        Log::info('Docs addr', ['addr' => sprintf('%s/swagger-ui/index.html', $host)]);
+        Log::info('===============================');
     }
 }
