@@ -3,51 +3,107 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Tag(
+ *     name="User",
+ * )
+ */
 class UserController extends Controller
 {
-
+    /**
+     * @OA\Get(
+     *     path="/v1/user/",
+     *     tags={"User"},
+     *     summary="User Info",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="user_code", type="string", example="A8000"),
+     *             @OA\Property(property="user_no", type="integer", example=10000),
+     *             @OA\Property(property="nickname", type="string", example="john"),
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="phone", type="string", example="13800138000")
+     *         )
+     *     )
+     * )
+     */
     public function get(Request $request): JsonResponse
     {
-        return $this->respond();
-    }
-
-    public function login(Request $request): JsonResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return $this->respond([
-            'token' => $token,
-            'token_type' => 'Bearer',
+        $user = $request->user();
+        return $this->ok([
+            'user_code' => $user->user_code,
+            'user_no' => $user->user_no,
+            'nickname' => $user->nickname,
+            'email' => $user->email,
+            'phone' => $user->phone,
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/v1/user/",
+     *     tags={"User"},
+     *     summary="Update User",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="nickname", type="string", example="NewNickname"),
+     *             @OA\Property(property="email", type="string", example="newemail@example.com")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User updated successfully")
+     *         )
+     *     )
+     * )
+     */
     public function update(Request $request): JsonResponse
     {
+        $user = $request->user();
+        $validator = Validator::make($request->all(), [
+            'nickname' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255|unique:users,email'
+        ]);
+        if ($validator->fails()) {
+            return $this->err($validator->errors()->first());
+        }
+        if ($request->filled('nickname')) {
+            $user->nickname = $request->input('nickname');
+        }
+        if ($request->filled('email')) {
+            $user->email = $request->input('email');
+        }
+        $user->save();
         return $this->ok();
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/v1/user/",
+     *     tags={"User"},
+     *     summary="Delete User",
+     *     operationId="deleteUser",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User deleted successfully")
+     *         )
+     *     )
+     * )
+     */
     public function delete(Request $request): JsonResponse
     {
+        $user = $request->user();
+        $user->delete();
         return $this->ok();
     }
 }

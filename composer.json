@@ -1,11 +1,12 @@
 {
-    "name": "redot/laravel-api-scaffold",
+    "name": "threshold/aphrodite-php",
     "type": "project",
     "license": "MIT",
-    "description": "Laravel API Scaffold",
-    "keywords": ["laravel", "api", "scaffold"],
+    "description": "Aphrodite API Scaffold",
+    "keywords": ["aphrodite", "laravel", "api", "scaffold"],
     "require": {
         "php": "^8.2",
+        "darkaonline/l5-swagger": "^8.6",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
