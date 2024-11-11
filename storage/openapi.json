@@ -5,6 +5,16 @@
         "description": "API Description",
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http:127.0.0.1:8000",
+            "description": "Development Environment"
+        },
+        {
+            "url": "http://test.aphrodite.com",
+            "description": "Test Environment"
+        }
+    ],
     "paths": {
         "/v1/send-code": {
             "post": {
@@ -63,7 +73,7 @@
                                 "properties": {
                                     "phone": {
                                         "type": "string",
-                                        "example": "13812345678"
+                                        "example": "13800138000"
                                     },
                                     "code": {
                                         "type": "string",
@@ -182,11 +192,11 @@
                                 "properties": {
                                     "nickname": {
                                         "type": "string",
-                                        "example": "NewNickname"
+                                        "example": "john"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "newemail@example.com"
+                                        "example": "john@example.com"
                                     }
                                 },
                                 "type": "object"

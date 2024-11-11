@@ -70,7 +70,7 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"phone", "code"},
-     *             @OA\Property(property="phone", type="string", example="13812345678"),
+     *             @OA\Property(property="phone", type="string", example="13800138000"),
      *             @OA\Property(property="code", type="string", example="1234")
      *         )
      *     ),

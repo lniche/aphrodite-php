@@ -12,7 +12,7 @@ return [
                 /*
                  * Route for accessing api documentation interface
                  */
-                'api' => 'api/documentation',
+                'api' => '/swagger-ui/index.html',
             ],
             'paths' => [
                 /*
@@ -54,7 +54,7 @@ return [
             /*
              * Route for accessing parsed swagger annotations.
              */
-            'docs' => 'docs',
+            'docs' => '/api-docs',
 
             /*
              * Route for Oauth2 authentication callback.
@@ -289,7 +289,7 @@ return [
                  * is case-sensitive matching the filter expression anywhere inside
                  * the tag.
                  */
-                'filter' => env('L5_SWAGGER_UI_FILTERS', true), // true | false
+                'filter' => env('L5_SWAGGER_UI_FILTERS', false), // true | false
             ],
 
             'authorization' => [

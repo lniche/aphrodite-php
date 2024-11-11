@@ -14,6 +14,15 @@ use Illuminate\Routing\Controller as BaseController;
  *     version="1.0.0",
  *     description="API Description",
  * )
+ * @OA\Server(
+ *     url="http:127.0.0.1:8000",
+ *     description="Development Environment"
+ * )
+ * 
+ * @OA\Server(
+ *     url="http://test.aphrodite.com",
+ *     description="Test Environment"
+ * )
  */
 class Controller extends BaseController
 {

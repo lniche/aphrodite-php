@@ -52,15 +52,17 @@ class UserController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="nickname", type="string", example="NewNickname"),
-     *             @OA\Property(property="email", type="string", example="newemail@example.com")
+     *             @OA\Property(property="nickname", type="string", example="john"),
+     *             @OA\Property(property="email", type="string", example="john@example.com")
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="User updated successfully")
+     *             @OA\Property(property="code", type="integer", example="0")
+     *             @OA\Property(property="message", type="string", example="ok")
+     *             @OA\Property(property="data",  example="ok")
      *         )
      *     )
      * )

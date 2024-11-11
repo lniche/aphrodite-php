@@ -74,7 +74,11 @@ database/init.sql
 
 # 5. Start the service
 php artisan serve
-or use php -S localhost:8000 -t public
+or use 
+php -S localhost:8000 -t public
+
+# generate swagger
+php artisan l5-swagger:generate
 ```
 
 ## Repo Activity

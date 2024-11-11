@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $host = Config::get('app.url');
+        Log::info('server start', ['host' => sprintf($host)]);
+        Log::info('docs addr', ['addr' => sprintf('%s/swagger-ui/index.html', $host)]);
     }
 }

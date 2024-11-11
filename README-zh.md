@@ -69,7 +69,11 @@ database/init.sql
 
 # 5. 启动服务
 php artisan serve
-or use php -S localhost:8000 -t public
+or use 
+php -S localhost:8000 -t public
+
+# 生成swagger
+php artisan l5-swagger:generate
 ```
 
 ## Repo Activity

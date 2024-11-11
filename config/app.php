@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'Africa/Cairo',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +141,7 @@ return [
 
     'maintenance' => [
         'driver' => 'file',
-        // 'store'  => 'redis',
+        'store'  => 'redis',
     ],
 
     /*
