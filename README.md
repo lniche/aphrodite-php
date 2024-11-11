@@ -4,18 +4,24 @@ Aphrodite is a template project based on [Laravel API Scaffold](https://github.c
 
 ## Tech Stack
 
-| Technology                                                | Description                                                                                    |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| [tokio](https://github.com/tokio-rs/tokio)                | Asynchronous runtime, supporting multiple asynchronous functions and full features             |
-| [clap](https://github.com/clap-rs/clap)                   | Command line argument parsing library, supporting derivative macros                            |
-| [thiserror](https://github.com/dtolnay/thiserror)         | Error handling library, providing concise error definitions                                    |
-| [anyhow](https://github.com/dtolnay/anyhow)               | Flexible error handling library, suitable for simplifying error propagation                    |
-| [base64](https://crates.io/crates/base64)                 | Base64 encoding and decoding library                                                           |
-| [time](https://crates.io/crates/time)                     | Time processing library, supporting macros, local time zones, formatting and parsing functions |
-| [serde](https://serde.rs/)                                | Data serialization and deserialization library, supporting derivative macros                   |
-| [serde_json](https://crates.io/crates/serde_json)         | JSON data serialization and deserialization library                                            |
-| [tracing](https://github.com/tokio-rs/tracing)            | Asynchronous application logging framework                                                     |
-| [tracing-subscriber](https://github.com/tokio-rs/tracing) | Log subscriber, supporting JSON format                                                         |
+| Technology                                                                      | Description                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [PHP](https://www.php.net/)                                                     | Required PHP version, PHP 8.2 or higher is required.                                                                                                                                              |
+| [guzzlehttp/guzzle](https://github.com/guzzle/guzzle)                           | HTTP client library for sending HTTP requests and supporting REST API communication.                                                                                                              |
+| [laravel/framework](https://github.com/laravel/framework)                       | Laravel framework core library, including all Laravel framework functions, such as routing, controllers, views, databases, etc.                                                                   |
+| [laravel/sanctum](https://github.com/laravel/sanctum)                           | Laravel package for API authentication and authorization, providing a simple token authentication mechanism.                                                                                      |
+| [laravel/tinker](https://github.com/laravel/tinker)                             | An interactive command line tool for interacting with Laravel applications, often used for debugging and performing tests.                                                                        |
+| [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) | A package for building API queries, supporting filtering, sorting, paging, and other functions to help build scalable queries.                                                                    |
+| [fakerphp/faker](https://github.com/FakerPHP/Faker)                             | A library for generating virtual data, often used for development and test data population.                                                                                                       |
+| [laravel/pint](https://github.com/laravel/pint)                                 | Laravel's code style checker, similar to PHP CodeSniffer, but with some custom rules specifically for Laravel.                                                                                    |
+| [laravel/sail](https://github.com/laravel/sail)                                 | Laravel's official Docker development environment simplifies the configuration of the development environment and is suitable for easily starting and running containers of Laravel applications. |
+| [mockery/mockery](https://github.com/mockery/mockery)                           | Test double library, providing mock objects function for dependency injection and method call simulation in unit testing.                                                                         |
+| [nunomaduro/collision](https://github.com/nunomaduro/collision)                 | Laravel error handling library, providing better error reporting and stack traces to improve the developer experience.                                                                            |
+| [phpunit/phpunit](https://phpunit.de/)                                          | PHP testing framework, widely used for unit testing of PHP applications.                                                                                                                          |
+| [spatie/laravel-ignition](https://github.com/spatie/laravel-ignition)           | Laravel error handling tool, providing better error pages and debugging information, suitable for debugging work in Laravel projects.                                                             |
+| [laravel/breeze](https://github.com/laravel/breeze)                             | A package for quickly starting the basic authentication system of Laravel projects (such as login, registration, etc.), suitable for simple authentication functions.                             |
+| [pestphp/pest](https://pestphp.com/)                                            | A modern and concise PHP testing framework that provides concise syntax and elegant testing functions, designed to replace PHPUnit.                                                               |
+| [pestphp/pest-plugin-laravel](https://pestphp.com/)                             | A Laravel plug-in for Pest, integrating the features of the Laravel project, making Laravel testing more concise and meaningful.                                                                  |
 
 ## Features
 

@@ -4,18 +4,24 @@ Aphrodite 是一个基于 [Laravel API Scaffold](https://github.com/redot-src/la
 
 ## 技术栈
 
-| 技术                                                      | 说明                                           |
-| --------------------------------------------------------- | ---------------------------------------------- |
-| [tokio](https://github.com/tokio-rs/tokio)                | 异步运行时，支持多种异步功能和全特性           |
-| [clap](https://github.com/clap-rs/clap)                   | 命令行参数解析库，支持衍生宏                   |
-| [thiserror](https://github.com/dtolnay/thiserror)         | 错误处理库，提供简洁的错误定义                 |
-| [anyhow](https://github.com/dtolnay/anyhow)               | 灵活的错误处理库，适用于简化错误传播           |
-| [base64](https://crates.io/crates/base64)                 | Base64 编码和解码库                            |
-| [time](https://crates.io/crates/time)                     | 时间处理库，支持宏、本地时区、格式化和解析功能 |
-| [serde](https://serde.rs/)                                | 数据序列化和反序列化库，支持衍生宏             |
-| [serde_json](https://crates.io/crates/serde_json)         | JSON 数据序列化和反序列化库                    |
-| [tracing](https://github.com/tokio-rs/tracing)            | 异步应用日志框架                               |
-| [tracing-subscriber](https://github.com/tokio-rs/tracing) | 日志订阅者，支持 JSON 格式                     |
+| 技术                                                                            | 说明                                                                                            |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [PHP](https://www.php.net/)                                                     | 必须的 PHP 版本，要求 PHP 8.2 或更高版本。                                                      |
+| [guzzlehttp/guzzle](https://github.com/guzzle/guzzle)                           | HTTP 客户端库，用于发送 HTTP 请求，支持 REST API 通信。                                         |
+| [laravel/framework](https://github.com/laravel/framework)                       | Laravel 框架核心库，包含了所有的 Laravel 框架功能，如路由、控制器、视图、数据库等。             |
+| [laravel/sanctum](https://github.com/laravel/sanctum)                           | 用于 API 认证和授权的 Laravel 包，提供简单的 token 认证机制。                                   |
+| [laravel/tinker](https://github.com/laravel/tinker)                             | 交互式命令行工具，用于与 Laravel 应用进行交互，通常用于调试和执行测试。                         |
+| [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) | 用于构建 API 查询的包，支持过滤、排序、分页等功能，帮助构建可扩展的查询。                       |
+| [fakerphp/faker](https://github.com/FakerPHP/Faker)                             | 用于生成虚拟数据的库，通常用于开发和测试数据填充。                                              |
+| [laravel/pint](https://github.com/laravel/pint)                                 | Laravel 的代码风格检查工具，类似于 PHP CodeSniffer，但专门为 Laravel 提供了一些自定义规则。     |
+| [laravel/sail](https://github.com/laravel/sail)                                 | Laravel 官方的 Docker 开发环境，简化了开发环境的配置，适用于轻松启动、运行 Laravel 应用的容器。 |
+| [mockery/mockery](https://github.com/mockery/mockery)                           | 测试替身库，提供模拟对象（mock objects）功能，用于单元测试中的依赖注入和方法调用模拟。          |
+| [nunomaduro/collision](https://github.com/nunomaduro/collision)                 | Laravel 错误处理库，提供更好的错误报告和堆栈追踪，改善开发者体验。                              |
+| [phpunit/phpunit](https://phpunit.de/)                                          | PHP 测试框架，广泛用于 PHP 应用的单元测试。                                                     |
+| [spatie/laravel-ignition](https://github.com/spatie/laravel-ignition)           | Laravel 错误处理工具，提供更好的错误页面和调试信息，适用于 Laravel 项目中的调试工作。           |
+| [laravel/breeze](https://github.com/laravel/breeze)                             | 用于快速启动 Laravel 项目基础认证系统（如登录、注册等）的包，适用于简单的认证功能。             |
+| [pestphp/pest](https://pestphp.com/)                                            | 一种现代化、简洁的 PHP 测试框架，提供简洁的语法和优雅的测试功能，旨在替代 PHPUnit。             |
+| [pestphp/pest-plugin-laravel](https://pestphp.com/)                             | 为 Pest 提供的 Laravel 插件，集成 Laravel 项目的特性，使得 Laravel 测试更加简洁和有意义。       |
 
 ## 特性
 
