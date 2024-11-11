@@ -12,10 +12,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    /**
-     * Send a Success JSON Response.
-     */
-    public function respond(mixed $data = [], string $message = 'ok', int $code = 0, int $httpStatus = 200): JsonResponse
+    public function ok(mixed $data = [], string $message = 'ok', int $code = 0, int $httpStatus = 200): JsonResponse
     {
         $parameters = [
             'code' => $code,
@@ -29,10 +26,7 @@ class Controller extends BaseController
         return response()->json($parameters, $httpStatus);
     }
 
-    /**
-     * Send a Failure JSON Response.
-     */
-    public function fail(string $message = 'err', int $code = -1, mixed $data = [], int $httpStatus = 500): JsonResponse
+    public function err(string $message = 'err', int $code = -1, mixed $data = [], int $httpStatus = 500): JsonResponse
     {
         $parameters = [
             'code' => $code,

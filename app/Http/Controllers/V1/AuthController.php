@@ -9,36 +9,29 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): JsonResponse
+
+    public function sendCode(Request $request): JsonResponse
+    {
+        return $this->ok();
+    }
+
+    public function login(LoginRequest $request): JsonResponse
     {
         $user = $request->authenticate();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return $this->respond([
+        return $this->ok([
             'token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
 
-    /**
-     * Display the current user.
-     */
-    public function show(Request $request): JsonResponse
-    {
-        return $this->respond($request->user());
-    }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
 
-        return $this->respond(message: 'Logged out successfully.');
+        return $this->ok();
     }
 }

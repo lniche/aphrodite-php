@@ -12,6 +12,6 @@ class HealthController extends Controller
 
     public function ping()
     {
-        return $this->respond(message: 'pong');
+        return $this->ok(message: 'pong');
     }
 }
