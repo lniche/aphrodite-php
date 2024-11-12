@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http:127.0.0.1:8000",
+            "url": "http://127.0.0.1:8000",
             "description": "Development Environment"
         },
         {
@@ -19,21 +19,20 @@
         "/v1/send-code": {
             "post": {
                 "tags": [
-                    "Auth"
+                    "Auth Moudle"
                 ],
                 "summary": "Send Verification Code",
                 "operationId": "ce471f2d6b74c5b8f92e8f6dd1f2e46c",
-                "parameters": [
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "13800138000"
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendVerifyCodeRequest"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -41,9 +40,16 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "0"
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "Code sent successfully"
+                                            "example": "ok"
+                                        },
+                                        "data": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -57,7 +63,7 @@
         "/v1/login": {
             "post": {
                 "tags": [
-                    "Auth"
+                    "Auth Moudle"
                 ],
                 "summary": "User Registration/Login",
                 "operationId": "f73e99b0f556dcc11b15f2fcac9adf4e",
@@ -66,21 +72,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "phone",
-                                    "code"
-                                ],
-                                "properties": {
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "13800138000"
-                                    },
-                                    "code": {
-                                        "type": "string",
-                                        "example": "1234"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/LoginRequest"
                             }
                         }
                     }
@@ -91,17 +83,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "token": {
-                                            "type": "string",
-                                            "example": "your_token_here"
-                                        },
-                                        "token_type": {
-                                            "type": "string",
-                                            "example": "Bearer"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/LoginResponse"
                                 }
                             }
                         }
@@ -112,7 +94,7 @@
         "/v1/logout": {
             "post": {
                 "tags": [
-                    "Auth"
+                    "Auth Moudle"
                 ],
                 "summary": "User Logout",
                 "operationId": "3b25ddba9ad865a7c2d334aa2e781acb",
@@ -123,9 +105,16 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "0"
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "Logged out successfully"
+                                            "example": "ok"
+                                        },
+                                        "data": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -133,73 +122,51 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/v1/user/": {
+        "/v1/user": {
             "get": {
                 "tags": [
-                    "User"
+                    "User Moudle"
                 ],
                 "summary": "User Info",
-                "operationId": "d8f99367d0c46ce56f3c15ace0df7eb9",
+                "operationId": "447f660054fa7c5b26b57e070bbe8f86",
                 "responses": {
                     "200": {
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "user_code": {
-                                            "type": "string",
-                                            "example": "A8000"
-                                        },
-                                        "user_no": {
-                                            "type": "integer",
-                                            "example": 10000
-                                        },
-                                        "nickname": {
-                                            "type": "string",
-                                            "example": "john"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "john@example.com"
-                                        },
-                                        "phone": {
-                                            "type": "string",
-                                            "example": "13800138000"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/GetUserResponse"
                                 }
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
-                    "User"
+                    "User Moudle"
                 ],
                 "summary": "Update User",
-                "operationId": "549429d64b5f886d8509e8405503233c",
+                "operationId": "a60239bfb9bd1ae8a4d9a05b00de7c4d",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "nickname": {
-                                        "type": "string",
-                                        "example": "john"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "example": "john@example.com"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/UpdateUserRequest"
                             }
                         }
                     }
@@ -211,9 +178,16 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "0"
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "User updated successfully"
+                                            "example": "ok"
+                                        },
+                                        "data": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -221,14 +195,19 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
-                    "User"
+                    "User Moudle"
                 ],
                 "summary": "Delete User",
-                "operationId": "deleteUser",
+                "operationId": "8ffab6d51533fbe237ad9151f90ebe4e",
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -236,9 +215,16 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "0"
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "User deleted successfully"
+                                            "example": "ok"
+                                        },
+                                        "data": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -246,26 +232,125 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "required": [
+                    "phone",
+                    "code"
+                ],
+                "properties": {
+                    "phone": {
+                        "description": "User Phone",
+                        "type": "string",
+                        "example": "13800138000"
+                    },
+                    "code": {
+                        "description": "Verification code",
+                        "type": "string",
+                        "maxLength": 4,
+                        "minLength": 4,
+                        "example": "1234"
+                    }
+                },
+                "type": "object"
+            },
+            "SendVerifyCodeRequest": {
+                "required": [
+                    "phone"
+                ],
+                "properties": {
+                    "phone": {
+                        "description": "User Phone",
+                        "type": "string",
+                        "example": "13800138000"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserRequest": {
+                "properties": {
+                    "nickname": {
+                        "description": "User Nickname",
+                        "type": "string",
+                        "example": "john"
+                    },
+                    "email": {
+                        "description": "User Email",
+                        "type": "string",
+                        "example": "john@example.com"
+                    }
+                },
+                "type": "object"
+            },
+            "GetUserResponse": {
+                "properties": {
+                    "nickname": {
+                        "description": "User Nickname",
+                        "type": "string",
+                        "example": "john"
+                    },
+                    "userNo": {
+                        "description": "User Number",
+                        "type": "integer",
+                        "example": "A8000"
+                    },
+                    "userCode": {
+                        "description": "User Code",
+                        "type": "string",
+                        "example": "100000"
+                    },
+                    "email": {
+                        "description": "User Email",
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "phone": {
+                        "description": "User Phone",
+                        "type": "string",
+                        "example": "13800138000"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginResponse": {
+                "required": [
+                    "assessToken"
+                ],
+                "properties": {
+                    "assessToken": {
+                        "description": "Access token",
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "Authorization": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "JWT Bearer Token authentication"
             }
         }
     },
     "tags": [
         {
-            "name": "Auth"
+            "name": "Auth Moudle"
         },
         {
-            "name": "User"
+            "name": "User Moudle"
         }
-    ],
-    "components": {
-        "securitySchemes": {
-            "sanctum": {
-                "type": "apiKey",
-                "description": "Enter token in format (Bearer <token>)",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    }
+    ]
 }

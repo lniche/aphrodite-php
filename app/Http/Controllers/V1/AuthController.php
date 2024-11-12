@@ -12,10 +12,11 @@ use App\Models\User;
 use App\Constants\CacheKey;
 use App\Utils\Snowflake;
 use Illuminate\Http\Response;
+use App\Http\Responses\V1\LoginResponse;
 
 /**
  * @OA\Tag(
- *     name="Auth",
+ *     name="Auth Moudle",
  * )
  */
 class AuthController extends Controller
@@ -23,19 +24,19 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/v1/send-code",
-     *     tags={"Auth"},
      *     summary="Send Verification Code",
-     *     @OA\Parameter(
-     *         name="phone",
-     *         in="query",
+     *     tags={"Auth Moudle"},
+     *     @OA\RequestBody(
      *         required=true,
-     *         @OA\Schema(type="string", example="13800138000")
+     *         @OA\JsonContent(ref="#/components/schemas/SendVerifyCodeRequest")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Code sent successfully")
+     *             @OA\Property(property="code", type="integer", example="0"),
+     *             @OA\Property(property="message", type="string", example="ok"),
+     *             @OA\Property(property="data", type="object")
      *         )
      *     )
      * )
@@ -49,7 +50,7 @@ class AuthController extends Controller
             return $this->err($validator->errors()->first());
         }
         $phone = $request->input('phone');
-        $cacheKey = CacheKey::SMS_VERIFICATION . $phone;
+        $cacheKey = CacheKey::SMS_CODE . $phone;
         $lockKey = CacheKey::SMS_SEND_LOCK . $phone;
         if (Cache::has($lockKey)) {
             return $this->err(httpStatus: Response::HTTP_UNAUTHORIZED);
@@ -64,23 +65,16 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/v1/login",
-     *     tags={"Auth"},
      *     summary="User Registration/Login",
+     *     tags={"Auth Moudle"},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"phone", "code"},
-     *             @OA\Property(property="phone", type="string", example="13800138000"),
-     *             @OA\Property(property="code", type="string", example="1234")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/LoginRequest")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", example="your_token_here"),
-     *             @OA\Property(property="token_type", type="string", example="Bearer")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/LoginResponse")
      *     )
      * )
      */
@@ -88,7 +82,7 @@ class AuthController extends Controller
     {
         $phone = $request->input('phone');
         $code = $request->input('code');
-        $cacheKey = CacheKey::SMS_VERIFICATION . $phone;
+        $cacheKey = CacheKey::SMS_CODE . $phone;
         $cachedCode = Cache::get($cacheKey);
         if (!$cachedCode || $cachedCode !== $code) {
             return $this->err(httpStatus: Response::HTTP_UNAUTHORIZED);
@@ -105,32 +99,32 @@ class AuthController extends Controller
                 'phone' => $phone,
                 'client_ip' => $clientip,
                 'login_at' => now(),
-                'logintoken' => $this->generateToken($user),
+                'login_token' => $this->generateToken($user),
                 'nickname' => 'SUGAR_' . substr($phone, -4),
             ]);
         } else {
             $user->update([
                 'login_at' => now(),
                 'client_ip' => $request->ip(),
-                'logintoken' => $this->generateToken($user),
+                'login_token' => $this->generateToken($user),
             ]);
         }
-        return $this->ok([
-            'token' => $user->logintoken,
-            'token_type' => 'Bearer',
-        ]);
+        return $this->ok(new LoginResponse($$user->login_token));
     }
 
     /**
      * @OA\Post(
      *     path="/v1/logout",
-     *     tags={"Auth"},
      *     summary="User Logout",
+     *     tags={"Auth Moudle"},
+     *     security={{"Authorization": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Logged out successfully")
+     *             @OA\Property(property="code", type="integer", example="0"),
+     *             @OA\Property(property="message", type="string", example="ok"),
+     *             @OA\Property(property="data", type="object")
      *         )
      *     )
      * )

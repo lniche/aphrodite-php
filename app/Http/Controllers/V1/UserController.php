@@ -9,26 +9,21 @@ use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Tag(
- *     name="User",
+ *     name="User Moudle",
  * )
  */
 class UserController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/v1/user/",
-     *     tags={"User"},
+     *     path="/v1/user",
      *     summary="User Info",
+     *     tags={"User Moudle"},
+     *     security={{"Authorization": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="user_code", type="string", example="A8000"),
-     *             @OA\Property(property="user_no", type="integer", example=10000),
-     *             @OA\Property(property="nickname", type="string", example="john"),
-     *             @OA\Property(property="email", type="string", example="john@example.com"),
-     *             @OA\Property(property="phone", type="string", example="13800138000")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/GetUserResponse")
      *     )
      * )
      */
@@ -46,23 +41,21 @@ class UserController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/v1/user/",
-     *     tags={"User"},
+     *     path="/v1/user",
      *     summary="Update User",
+     *     tags={"User Moudle"},
+     *     security={{"Authorization": {}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="nickname", type="string", example="john"),
-     *             @OA\Property(property="email", type="string", example="john@example.com")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/UpdateUserRequest")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
      *         @OA\JsonContent(
-     *             @OA\Property(property="code", type="integer", example="0")
-     *             @OA\Property(property="message", type="string", example="ok")
-     *             @OA\Property(property="data",  example="ok")
+     *             @OA\Property(property="code", type="integer", example="0"),
+     *             @OA\Property(property="message", type="string", example="ok"),
+     *             @OA\Property(property="data", type="object")
      *         )
      *     )
      * )
@@ -89,15 +82,17 @@ class UserController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/v1/user/",
-     *     tags={"User"},
+     *     path="/v1/user",
      *     summary="Delete User",
-     *     operationId="deleteUser",
+     *     tags={"User Moudle"},
+     *     security={{"Authorization": {}}},
      *     @OA\Response(
      *         response=200,
      *         description="Successful Response",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="User deleted successfully")
+     *             @OA\Property(property="code", type="integer", example="0"),
+     *             @OA\Property(property="message", type="string", example="ok"),
+     *             @OA\Property(property="data", type="object")
      *         )
      *     )
      * )
