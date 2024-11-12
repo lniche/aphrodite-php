@@ -42,4 +42,12 @@ class UpdateUserRequest extends FormRequest
             'email' => ['nullable', 'email', 'max:255'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'nickname.max' => 'The nickname may not be greater than 255 characters.',
+            'email.email' => 'The email must be a valid email address.',
+        ];
+    }
 }

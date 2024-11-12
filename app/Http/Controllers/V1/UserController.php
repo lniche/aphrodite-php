@@ -5,7 +5,11 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\V1\UpdateUserRequest;
+use App\Http\Responses\V1\GetUserResponse;
+use App\Models\User;
+use Carbon\Carbon;
+
 
 /**
  * @OA\Tag(
@@ -29,14 +33,24 @@ class UserController extends Controller
      */
     public function get(Request $request): JsonResponse
     {
-        $user = $request->user();
-        return $this->ok([
-            'user_code' => $user->user_code,
-            'user_no' => $user->user_no,
-            'nickname' => $user->nickname,
-            'email' => $user->email,
-            'phone' => $user->phone,
-        ]);
+        $userCode = $request->route('user_code');
+
+        if ($userCode) {
+            $user = User::where('user_code', $userCode)->first();
+            if (!$user) {
+                return $this->err('User not found');
+            }
+        } else {
+            $user = $request->user();
+        }
+        $getUserResponse = new GetUserResponse(
+            $user->user_code,
+            $user->user_no,
+            $user->nickname,
+            $user->email,
+            $user->phone
+        );
+        return $this->ok($getUserResponse);
     }
 
     /**
@@ -60,16 +74,9 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(Request $request): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
         $user = $request->user();
-        $validator = Validator::make($request->all(), [
-            'nickname' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255|unique:users,email'
-        ]);
-        if ($validator->fails()) {
-            return $this->err($validator->errors()->first());
-        }
         if ($request->filled('nickname')) {
             $user->nickname = $request->input('nickname');
         }
@@ -100,7 +107,9 @@ class UserController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $user = $request->user();
-        $user->delete();
+        $user->status = 3;
+        $user->deleted_at = Carbon::now();
+        $user->save();
         return $this->ok();
     }
 }

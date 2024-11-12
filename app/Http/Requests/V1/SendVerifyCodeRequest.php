@@ -30,4 +30,12 @@ class SendVerifyCodeRequest extends FormRequest
             'phone' => ['required', 'string', 'regex:/^1[3-9]\d{9}$/'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'phone.required' => 'Phone number cannot be empty',
+            'phone.regex' => 'Verification code cannot be empty',
+        ];
+    }
 }

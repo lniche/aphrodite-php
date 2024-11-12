@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +46,28 @@ class Handler extends ExceptionHandler
             return parent::render($request, $e);
         }
 
+        if ($request->expectsJson()) {
+            if ($e instanceof ValidationException) {
+                Log::warning('Validation failed', [
+                    'errors' => $e->errors(),
+                    'request_data' => $request->all(),
+                ]);
+            } elseif ($e instanceof HttpException) {
+                Log::error('HTTP Exception occurred', [
+                    'status' => $e->getStatusCode(),
+                    'message' => $e->getMessage(),
+                    'request_data' => $request->all(),
+                ]);
+            } else {
+                Log::error('API Exception occurred', [
+                    'exception' => $e,
+                    'message' => $e->getMessage(),
+                    'stack' => $e->getTraceAsString(),
+                    'request_data' => $request->all(),
+                ]);
+            }
+        }
+
         $code = $this->parseExceptionCode($e);
         $message = $this->parseExceptionMessage($e, $code);
         $data = $this->parseExceptionPayload($e);
@@ -73,7 +96,7 @@ class Handler extends ExceptionHandler
             return $e->status;
         }
 
-        return 400;
+        return 500;
     }
 
     /**
@@ -178,10 +201,10 @@ class Handler extends ExceptionHandler
         return [
             'code' => $e->getCode(),
             'message' => $e->getMessage(),
-            'details' => [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTrace(),
+            'data' => [
+                // 'file' => $e->getFile(),
+                // 'line' => $e->getLine(),
+                // 'trace' => $e->getTrace(),
             ],
         ];
     }

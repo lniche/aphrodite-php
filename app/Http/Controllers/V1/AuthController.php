@@ -7,12 +7,11 @@ use App\Http\Requests\V1\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Constants\CacheKey;
 use App\Utils\Snowflake;
-use Illuminate\Http\Response;
 use App\Http\Responses\V1\LoginResponse;
+use App\Http\Requests\V1\SendVerifyCodeRequest;
 
 /**
  * @OA\Tag(
@@ -41,23 +40,15 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function sendVerifyCode(Request $request): JsonResponse
+    public function sendVerifyCode(SendVerifyCodeRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'phone' => ['required', 'string', 'regex:/^1[3-9]\d{9}$/'],
-        ]);
-        if ($validator->fails()) {
-            return $this->err($validator->errors()->first());
-        }
         $phone = $request->input('phone');
         $cacheKey = CacheKey::SMS_CODE . $phone;
-        $lockKey = CacheKey::SMS_SEND_LOCK . $phone;
-        if (Cache::has($lockKey)) {
-            return $this->err(httpStatus: Response::HTTP_UNAUTHORIZED);
+        if (Cache::has($cacheKey)) {
+            return $this->err(message: "A verification code has already been sent within a minute, please try again later");
         }
-        $code = rand(1000, 9999);
-        Cache::put($cacheKey, $code, now()->addMinutes(1));
-        Cache::put($lockKey, true, now()->addMinutes(1));
+        $cacheCode = rand(1000, 9999);
+        Cache::put($cacheKey, $cacheCode, now()->addMinutes(1));
         # TODO fake send
         return $this->ok();
     }
@@ -83,9 +74,9 @@ class AuthController extends Controller
         $phone = $request->input('phone');
         $code = $request->input('code');
         $cacheKey = CacheKey::SMS_CODE . $phone;
-        $cachedCode = Cache::get($cacheKey);
-        if (!$cachedCode || $cachedCode !== $code) {
-            return $this->err(httpStatus: Response::HTTP_UNAUTHORIZED);
+        $cacheCode = Cache::get($cacheKey);
+        if (!$cacheCode || $cacheCode !== $code) {
+            return $this->err(message: "Verification code is incorrect, please re-enter");
         }
         $user = User::where('phone', $phone)->first();
         if (!$user) {
