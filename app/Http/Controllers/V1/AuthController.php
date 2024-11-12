@@ -41,7 +41,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function sendCode(Request $request): JsonResponse
+    public function sendVerifyCode(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'phone' => ['required', 'string', 'regex:/^1[3-9]\d{9}$/'],

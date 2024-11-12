@@ -10,7 +10,7 @@ Route::get('/ping', [\App\Http\Controllers\HealthController::class, 'ping'])->na
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::middleware('guest:users')->group(function () {
-            Route::post('/send-code', [\App\Http\Controllers\V1\AuthController::class, 'sendCode'])->name('sendCode');
+            Route::post('/send-code', [\App\Http\Controllers\V1\AuthController::class, 'sendVerifyCode'])->name('sendVerifyCode');
             Route::post('/login', [\App\Http\Controllers\V1\AuthController::class, 'login'])->name('login');
         });
         Route::middleware('auth:users')->group(function () {
