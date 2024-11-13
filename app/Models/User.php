@@ -34,25 +34,9 @@ class User extends Authenticatable
 
     protected $casts = [
         'login_at' => 'datetime',
-        'user_code' => 'int',
         'user_no' => 'int',
         'status' => 'int',
     ];
 
     protected static function booted(): void {}
-
-    public function getRememberToken()
-    {
-        return $this->login_token;
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->login_token = $value;
-    }
-
-    public function viaRemember()
-    {
-        return ! is_null($this->login_token);
-    }
 }
