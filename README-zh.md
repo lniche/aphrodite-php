@@ -38,15 +38,18 @@ Aphrodite 是一个基于 [Laravel API Scaffold](https://github.com/redot-src/la
 
 ```
 .
-├── app/            # 存放应用程序代码（核心代码）
+├── app/            # 应用核心代码
+├── bin/            # 可执行脚本
 ├── bootstrap/      # 存放框架启动文件
-├── config/         # 存放框架和应用程序的配置文件
-├── database/       # 存放数据库相关的文件
-├── public/         # 公共文件目录（Web 服务器的根目录）
-├── resources/      # 存放资源文件，如视图、语言文件、CSS、JS 等
+├── config/         # 配置文件
+├── database/       # 数据库相关
+├── deploy/         # 部署相关文件
+├── docs/           # 项目文档
+├── public/         # 公共资源
+├── resources/      # 存放资源文件
 ├── routes/         # 存放路由定义文件
-├── storage/        # 存放框架生成的文件，如日志文件、缓存文件、会话文件等
-├── tests/          # 存放自动化测试代码
+├── storage/        # 文件存储
+├── tests/          # 测试文件
 └── README.md       # 项目的自述文件
 ```
 

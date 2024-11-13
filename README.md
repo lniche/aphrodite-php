@@ -44,15 +44,18 @@ Aphrodite is a template project based on [Laravel API Scaffold](https://github.c
 ```
 .
 ├── app/          # Core application code
+├── bin/        # Executable scripts
 ├── bootstrap/    # Framework startup files
 ├── config/       # Configuration files
 ├── database/     # Database files
-├── public/       # Web server root directory
+├── deploy/     # Deployment files
+├── docs/       # Documentation
+├── public/       # Public assets
 ├── resources/    # Resource files (views, language files, CSS, JS, etc.)
 ├── routes/       # Route definition files
-├── storage/      # Framework-generated files (logs, cache, sessions, etc.)
-├── tests/        # Automated test code
-└── README.md     # Project documentation
+├── storage/      # File storage
+├── tests/        # Tests
+└── README.md     # Project description
 ```
 
 ## Run Local
